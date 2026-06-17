@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethron Studios — Turn Attention Into Clients.</title>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;500;600;700&family=Anton&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════
+   FOUNDATION
+════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#1E5EFF;
+  --blue-dark:#0D1B52;
+  --blue-mid:#1240CC;
+  --blue-soft:#F0F6FF;
+  --blue-pale:#F4F8FF;
+  --orange:#FF7A00;
+  --orange-dark:#E06300;
+  --black:#080808;
+  --black2:#0F0F0F;
+  --white:#FFFFFF;
+  --off-white:#FAFAFA;
+  --grey:#F0F0F0;
+  --grey2:#E8E8E8;
+  --border:rgba(0,0,0,0.07);
+  --text:#0A0A0A;
+  --muted:#6B7280;
+  --muted2:#9CA3AF;
+  --radius:16px;
+  --radius-lg:24px;
+  --radius-xl:32px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{
+  background:var(--white);
+  background-image: url("bg1.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--orange);border-radius:2px}
+
+/* ════════════════════════════════════════
+   CUSTOM CURSOR
+════════════════════════════════════════ */
+#cursor{width:10px;height:10px;background:var(--blue);border-radius:50%;position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);transition:width 0.3s ease,height 0.3s ease,background 0.3s ease,opacity 0.3s ease;mix-blend-mode:multiply}
+#cursor-ring{width:36px;height:36px;border:1.5px solid rgba(30,94,255,0.4);border-radius:50%;position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);transition:width 0.3s ease,height 0.3s ease,border-color 0.3s ease,opacity 0.3s ease}
+body:has(a:hover) #cursor,body:has(button:hover) #cursor{width:6px;height:6px;background:var(--orange)}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring{width:52px;height:52px;border-color:var(--orange)}
+
+/* ════════════════════════════════════════
+   LOADER
+════════════════════════════════════════ */
+#loader{position:fixed;inset:0;z-index:9000;background:var(--black);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity 0.6s ease,visibility 0.6s ease}
+#loader.done{opacity:0;visibility:hidden}
+.loader-logo{font-family:'League Spartan',sans-serif;font-size:32px;font-weight:800;letter-spacing:-0.02em;color:white}
+.loader-logo em{color:var(--orange);font-style:normal}
+.loader-bar{width:160px;height:2px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+.loader-fill{height:100%;background:var(--orange);animation:load 1.2s ease forwards;border-radius:2px}
+@keyframes load{from{width:0}to{width:100%}}
+.loader-text{font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);font-family:'Inter',sans-serif}
+
+/* ════════════════════════════════════════
+   GLOBAL ATOMS
+════════════════════════════════════════ */
+.wrap{max-width:1200px;margin:0 auto;padding:0 64px}
+h1,h2,h3,h4,h5{font-family:'League Spartan',sans-serif;font-weight:800;letter-spacing:-0.03em;line-height:0.88}
+.label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
+.label::before{content:'';width:20px;height:1.5px;background:var(--orange);display:block}
+
+/* ── All buttons use Anton ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:100px;font-family:'sans serif',sans-serif;font-size:15px;letter-spacing:0.04em;text-decoration:none;cursor:none;border:2px;transition:all 0.25s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden;white-space:nowrap}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background 0.2s}
+.btn:hover::after{background:rgba(255,255,255,0.08)}
+.btn-orange{background:var(--orange);color:white;box-shadow:0 2px 24px rgba(255,122,0,0.35),inset 0 1px 0 rgba(255,255,255,0.2);padding:14px 32px}
+.btn-orange:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 36px rgba(255,122,0,0.45)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--grey2)}
+.btn-outline:hover{border-color:var(--text);background:var(--off-white)}
+.btn-white-ghost{background:rgba(255,255,255,0.08);color:white;border:1.5px solid rgba(255,255,255,0.15);backdrop-filter:blur(10px)}
+.btn-white-ghost:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.4)}
+.btn-cta{background:var(--orange);color:white;box-shadow:0 4px 32px rgba(255,122,0,0.4),inset 0 1px 0 rgba(255,255,255,0.2);font-size:18px;padding:18px 44px}
+.btn-cta:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 48px rgba(255,122,0,0.5)}
+.btn-lg{padding:16px 36px;font-size:16px}
+.btn-sm{padding:10px 20px;font-size:13px}
+
+/* Reveal */
+.r{opacity:0;transform:translateY(28px);transition:opacity 0.6s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.r.in{opacity:1;transform:translateY(0)}
+.r2{transition-delay:0.1s}.r3{transition-delay:0.2s}.r4{transition-delay:0.3s}
+
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+@keyframes fomo{0%,100%{opacity:1;border-color:rgba(30,94,255,0.2)}50%{opacity:0.55;border-color:rgba(30,94,255,0.5)}}
+
+/* ════════════════════════════════════════
+   NAV
+════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;display:flex;align-items:center;transition:all 0.4s ease}
+nav.scrolled{background:rgba(255,255,255,0.93);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);box-shadow:0 1px 24px rgba(0,0,0,0.05)}
+.nav-wrap{max-width:1200px;margin:0 auto;padding:0 64px;width:100%;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'League Spartan',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.02em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:2px}
+.nav-logo .dot{color:var(--orange)}
+.nav-pill{background:rgba(255,122,0,0.08);border:1px solid rgba(255,122,0,0.15);border-radius:100px;padding:4px 12px 4px 8px;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--orange);font-family:'Inter',sans-serif}
+.nav-pill-dot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:blink 2s ease infinite}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.2s;letter-spacing:-0.01em}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;gap:10px;align-items:center}
+
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
+#hero{
+  ...
+  background-image: url("hero-bg.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  ...
+}
+.hero-grid-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(30,94,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,94,255,0.04) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 20%,transparent 80%)}
+.hero-radial{position:absolute;top:-200px;right:-150px;width:700px;height:700px;background:radial-gradient(circle,rgba(255,122,0,0.06) 0%,transparent 70%);animation:float 12s ease infinite}
+.hero-radial2{position:absolute;bottom:-150px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(30,94,255,0.05) 0%,transparent 70%);animation:float 10s ease infinite reverse}
+.hero-inner{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:80px 64px;display:flex;flex-direction:column;align-items:center;width:100%;text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 16px 6px 10px;border-radius:100px;background:rgba(255,122,0,0.08);margin-bottom:32px;width:fit-content;border:1px solid rgba(255,122,0,0.15)}
+.hero-eyebrow span{font-family:'Caveat',cursive;font-size:16px;font-weight:600;color:var(--orange)}
+.hero-h1{font-size:clamp(52px,7vw,96px);font-weight:900;line-height:0.88;letter-spacing:-0.035em;color:var(--text);margin-bottom:24px}
+.hero-sub{font-family:'Caveat',cursive;font-size:22px;color:var(--muted);line-height:1.65;max-width:520px;margin:0 auto 28px}
+
+/* FOMO Badge */
+.fomo-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;background:rgba(30,94,255,0.06);border:2px solid rgba(30,94,255,0.18);margin-bottom:28px;font-family:'Jetbrain bold',sans-serif;font-size:10px;letter-spacing:0.07em;color:var(--blue-dark);animation:fomo 2s ease infinite}
+.fomo-dot{width:7px;height:7px;background:var(--blue);border-radius:50%;flex-shrink:0;animation:blink 1.5s ease infinite}
+
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px;justify-content:center}
+.hero-stats{display:flex;gap:48px;justify-content:center;padding-top:32px;border-top:1px solid var(--grey)}
+.hero-stat-val{font-family:'League Spartan',sans-serif;font-size:32px;font-weight:800;letter-spacing:-0.03em;color:var(--text);line-height:1;margin-bottom:4px;display:flex;align-items:baseline;gap:2px}
+.hero-stat-val em{font-size:18px;color:var(--orange);font-style:normal}
+.hero-stat-lbl{font-size:12px;color:var(--muted);font-weight:400}
+
+/* ════════════════════════════════════════
+   VSL
+════════════════════════════════════════ */
+#vsl{padding:45px 0;background:transparent;}
+.vsl-wrap{max-width:1100px;margin:0 auto;padding:0 64px}
+.vsl-container{width:100%;aspect-ratio:16/9;border-radius:var(--radius-xl);overflow:hidden;position:relative;box-shadow:0 40px 100px rgba(0,0,0,0.15),0 0 0 1px rgba(0,0,0,0.06)}
+.vsl-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;background:linear-gradient(145deg,#0a0f2e 0%,#0d1b52 40%,#050a1a 100%);position:relative}
+.vsl-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(255,122,0,0.07) 0%,transparent 70%)}
+.vsl-play{width:80px;height:80px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 16px rgba(255,122,0,0.1),0 0 0 32px rgba(255,122,0,0.05);cursor:pointer;transition:transform 0.3s ease;position:relative;z-index:1;animation:vsl-pulse 3s ease infinite}
+.vsl-play:hover{transform:scale(1.1)}
+@keyframes vsl-pulse{0%,100%{box-shadow:0 0 0 16px rgba(255,122,0,0.1),0 0 0 32px rgba(255,122,0,0.05)}50%{box-shadow:0 0 0 22px rgba(255,122,0,0.14),0 0 0 44px rgba(255,122,0,0.06)}}
+.vsl-play-i{width:0;height:0;border-top:14px solid transparent;border-bottom:14px solid transparent;border-left:24px solid white;margin-left:6px}
+.vsl-lbl{font-family:'Caveat',cursive;font-size:22px;color:rgba(255,255,255,0.4);position:relative;z-index:1}
+.vsl-badge{position:absolute;top:20px;left:20px;background:rgba(255,122,0,0.9);font-size:11px;font-weight:700;color:white;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;border-radius:100px;font-family:'Inter',sans-serif}
+
+/* ════════════════════════════════════════
+   MARQUEE
+════════════════════════════════════════ */
+.mq{border-top:1px solid var(--black);border-bottom:1px solid var(--black);background:transparent;padding:14px 0;overflow:hidden}
+.mq-track{display:flex;width:max-content;animation:mq 28s linear infinite}
+.mq-track:hover{animation-play-state:paused}
+.mq-item{font-size:12px;font-weight:600;color:var(--black);padding:0 28px;white-space:nowrap;letter-spacing:0.04em;text-transform:uppercase;display:flex;align-items:center;gap:28px}
+.mq-sep{color:var(--orange);font-size:7px}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ════════════════════════════════════════
+   PORTFOLIO — TABBED
+════════════════════════════════════════ */
+#portfolio{padding:65px 0;background:transparent;}
+.port-hdr{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:44px}
+.port-h2{font-size:clamp(44px,6vw,72px);font-weight:900;line-height:0.88;letter-spacing:-0.035em;color:var(--text)}
+.port-hint{font-family:'Caveat',cursive;font-size:19px;color:var(--muted);max-width:260px;text-align:right;line-height:1.4}
+.port-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.port-tab{padding:10px 22px;border-radius:100px;font-size:13px;font-weight:600;font-family:'Inter',sans-serif;color:var(--muted);background:white;border:1.5px solid var(--grey2);cursor:none;transition:all 0.2s ease;letter-spacing:-0.01em}
+.port-tab:hover{color:var(--text);border-color:rgba(30,94,255,0.2);background:var(--blue-soft)}
+.port-tab.active{background:var(--blue);color:white;border-color:var(--blue);box-shadow:0 4px 16px rgba(30,94,255,0.22)}
+.port-panel{display:none;grid-template-columns:repeat(3,1fr);gap:14px}
+.port-panel.active{display:grid}
+.port-panel-reels{grid-template-columns:repeat(3,1fr)}
+.port-card{border-radius:var(--radius-lg);overflow:hidden;position:relative;cursor:none;transition:transform 0.3s ease;background:var(--black2)}
+.port-card:hover{transform:translateY(-5px)}
+.port-land{aspect-ratio:16/9}
+.port-port{aspect-ratio:9/16}
+.port-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.port-play{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.22);display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+.port-card:hover .port-play{background:var(--orange);border-color:var(--orange);transform:scale(1.12)}
+.port-play-i{width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-left:12px solid white;margin-left:3px}
+.port-type-lbl{font-size:9px;font-weight:600;color:rgba(255,255,255,0.28);letter-spacing:0.1em;text-transform:uppercase;font-family:'Inter',sans-serif}
+.port-badge{position:absolute;top:12px;left:12px;z-index:2;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,0.07);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);font-size:10px;font-weight:600;color:rgba(255,255,255,0.65);font-family:'Inter',sans-serif}
+.port-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,12,36,0.95) 0%,transparent 52%);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:14px;z-index:2}
+.port-card:hover .port-overlay{opacity:1}
+.port-title{font-family:'League Spartan',sans-serif;font-size:13px;font-weight:700;color:white;line-height:1.2}
+
+/* ════════════════════════════════════════
+   WHAT WE CREATE
+════════════════════════════════════════ */
+#what-we-create{padding: 65px 0;background:var(--white)}
+.wwc-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:52px}
+.wwc-h2{font-size:clamp(44px,6vw,72px);font-weight:900;line-height:0.88;letter-spacing:-0.035em;color:var(--text)}
+.wwc-note{font-family:'Caveat',cursive;font-size:20px;color:var(--muted);max-width:260px;line-height:1.4;text-align:right}
+.wwc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.wwc-card{background:var(--off-white);border:1px solid var(--grey2);border-radius:var(--radius-lg);padding:30px 24px 26px;position:relative;overflow:hidden;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);cursor:none}
+.wwc-card:hover{background: rgba(250,250,250,0.75);border-color:rgba(30,94,255,0.15);transform:translateY(-5px);box-shadow:0 16px 48px rgba(30,94,255,0.07)}
+.wwc-icon{font-size:28px;margin-bottom:14px;display:block;line-height:1}
+.wwc-name{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:0.02em;color:var(--text);margin-bottom:8px;line-height:1.1}
+.wwc-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.wwc-bar{position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--blue),var(--orange));transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease}
+.wwc-card:hover .wwc-bar{transform:scaleX(1)}
+
+/* ════════════════════════════════════════
+   FRAMEWORK
+════════════════════════════════════════ */
+#framework{padding:65px 0;background:var(--off-white)}
+.fw-header{margin-bottom:64px}
+.fw-header-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:40px}
+.fw-h2{font-size:clamp(44px,6vw,72px);font-weight:900;line-height:0.88;letter-spacing:-0.035em;color:var(--text);max-width:500px}
+.fw-note{font-family:'Caveat',cursive;font-size:20px;color:var(--muted);max-width:280px;line-height:1.4}
+.fw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--grey2);border:1px solid var(--grey2);overflow:hidden;border-radius:var(--radius-xl)}
+.fw-card{background: rgba(250,250,250,0.75);padding:52px 44px;position:relative;overflow:hidden;transition:all 0.4s cubic-bezier(0.16,1,0.3,1);cursor:none}
+.fw-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.fw-card:hover{background:var(--off-white)}
+.fw-card:hover::before{transform:scaleX(1)}
+.fw-num{font-family:'Caveat',cursive;font-size:34px;font-weight:700;color:var(--orange-dark);line-height:1;margin-bottom:20px;display:inline-block;transition:color 0.3s}
+.fw-card:hover .fw-num{color:var(--orange)}
+.fw-name{font-family:'League Spartan',sans-serif;font-size:32px;font-weight:800;letter-spacing:-0.025em;color:var(--text);margin-bottom:14px}
+.fw-desc{font-size:14px;color:var(--muted);line-height:1.72;margin-bottom:24px}
+.fw-caveat{font-family:'Caveat',cursive;font-size:18px;color:var(--orange);display:block;transform:rotate(-1deg)}
+
+
+
+/* ════════════════════════════════════════
+   PACKAGES
+════════════════════════════════════════ */
+#packages{padding:65px 0;background:var(--off-white)}
+.pkg-hdr{text-align:center;margin-bottom:64px}
+.pkg-h2{font-size:clamp(44px,6vw,72px);font-weight:900;line-height:0.88;letter-spacing:-0.035em;color:var(--text);margin-bottom:14px}
+.pkg-sub{font-family:'Caveat',cursive;font-size:22px;color:var(--muted)}
+.pkg-grid{display:grid;grid-template-columns:1fr 1.08fr 1fr;gap:16px;align-items:stretch}
+.pkg-card{background: rgba(250,250,250,0.75);border:1.5px solid var(--grey2);border-radius:var(--radius-xl);padding:44px 36px;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:all 0.3s cubic-bezier(0.16,1,0.3,1)}
+.pkg-card:hover{transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,0.07)}
+.pkg-card.featured{background:linear-gradient(155deg,#EEF5FF 0%,#E8EEFF 60%,#E2EAFF 100%);border:2px solid rgba(30,94,255,0.18);box-shadow:0 8px 40px rgba(30,94,255,0.1)}
+.pkg-card.featured:hover{box-shadow:0 24px 72px rgba(30,94,255,0.15);border-color:rgba(30,94,255,0.28)}
+.pkg-badge{position:absolute;top:20px;right:20px;background:var(--blue);color:white;font-family:'Anton',sans-serif;font-size:11px;letter-spacing:0.06em;padding:5px 12px;border-radius:100px}
+.pkg-icon{font-size:34px;margin-bottom:18px;display:block;line-height:1}
+.pkg-name{font-family:'League Spartan',sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.025em;color:var(--text);margin-bottom:6px}
+.pkg-tagline{font-family:'Caveat',cursive;font-size:17px;color:var(--muted);margin-bottom:28px;display:block}
+.pkg-divider{height:1px;background:var(--grey2);margin-bottom:24px}
+.pkg-card.featured .pkg-divider{background:rgba(30,94,255,0.1)}
+.pkg-features{list-style:none;margin-bottom:32px;flex:1;display:flex;flex-direction:column}
+.pkg-feat{display:flex;align-items:flex-start;gap:10px;padding:10px 0;font-size:14px;color:var(--muted);border-bottom:1px solid var(--grey);line-height:1.45}
+.pkg-card.featured .pkg-feat{border-color:rgba(30,94,255,0.07);color:#374151}
+.pkg-check{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px}
+.chk-std{background:rgba(107,114,128,0.1);color:var(--muted)}
+.chk-feat{background:rgba(30,94,255,0.1);color:var(--blue)}
+.pkg-btn{display:block;width:100%;padding:14px 24px;border-radius:100px;text-align:center;font-family:'Anton',sans-serif;font-size:16px;letter-spacing:0.04em;text-decoration:none;transition:all 0.25s ease;cursor:none}
+.pkg-btn-outline{color:var(--text);border:1.5px solid var(--grey2);background:transparent}
+.pkg-btn-outline:hover{border-color:rgba(30,94,255,0.3);background:white;color:var(--blue)}
+.pkg-btn-blue{background:var(--blue);color:white;border:none;box-shadow:0 4px 24px rgba(30,94,255,0.28)}
+.pkg-btn-blue:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(30,94,255,0.38)}
+
+/* ════════════════════════════════════════
+   COMPARISON — ETHRON VS OTHERS
+════════════════════════════════════════ */
+#comparison{padding:65px 0;background:transparent;}
+.cmp-hdr{text-align:center;margin-bottom:56px}
+.cmp-h2{font-size:clamp(40px,5.5vw,68px);font-weight:900;line-height:0.88;letter-spacing:-0.035em;color:var(--text);margin-bottom:14px}
+.cmp-sub{font-family:'Caveat',cursive;font-size:22px;color:var(--muted)}
+.cmp-box{border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--grey2);box-shadow:0 4px 32px rgba(0,0,0,0.04)}
+.cmp-head{display:grid;grid-template-columns:1.6fr 1fr 1fr;background:var(--off-white);border-bottom:2px solid var(--grey2)}
+.cmp-hcell{padding:20px 28px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted2)}
+.cmp-hcell.h-ethron{background:#EBF3FF;color:var(--blue);display:flex;align-items:center;gap:8px}
+.cmp-brand{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:0.06em;color:var(--blue)}
+.cmp-row{display:grid;grid-template-columns:1.6fr 1fr 1fr;border-bottom:1px solid var(--grey)}
+.cmp-row:last-child{border-bottom:none}
+.cmp-cell{padding:17px 28px;font-size:14px;display:flex;align-items:center;gap:10px;background:white;transition:background 0.15s}
+.cmp-row:hover .cmp-cell{background:var(--blue-pale)}
+.cmp-row:hover .cmp-cell.c-feat{background:#F5F5F5}
+.cmp-row:hover .cmp-cell.c-ethron{background:#E6EFFF}
+.c-feat{color:var(--text);font-weight:500;background:var(--off-white)}
+.c-others{color:var(--muted)}
+.c-ethron{background:#F2F8FF;color:#1A3FAA;font-weight:500}
+.ico-yes{width:22px;height:22px;border-radius:50%;background:#DBEAFE;color:#1D4ED8;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.ico-no{width:22px;height:22px;border-radius:50%;background:#F3F4F6;color:var(--muted2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+
+/* ════════════════════════════════════════
+   FOUNDER
+════════════════════════════════════════ */
+#founder{padding:65px 0;background: rgba(250,250,250,0.75);position:relative;overflow:hidden}
+.founder-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.founder-img-col{position:relative}
+.founder-photo{width:100%;aspect-ratio:1/1;max-height:520px;border-radius:var(--radius-xl);overflow:hidden;background:linear-gradient(135deg,var(--grey),var(--grey2));box-shadow:0 40px 80px rgba(0,0,0,0.1)}
+.founder-photo img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.fn{position:absolute;font-family:'Caveat',cursive;font-size:16px;display:flex;align-items:center;gap:6px;pointer-events:none}
+.fn-1{top:-20px;right:-16px;color:var(--blue);transform:rotate(2.5deg);font-size:18px}
+.fn-2{bottom:80px;left:-24px;color:var(--orange);transform:rotate(-3deg)}
+.fn-3{bottom:-16px;right:24px;color:var(--muted2);transform:rotate(1.5deg);font-size:15px}
+.fn-4{top:120px;left:-32px;color:rgba(255,122,0,0.6);transform:rotate(-2deg);font-size:15px}
+.fn-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.founder-h2{font-size:clamp(36px,5vw,58px);font-weight:900;line-height:0.88;letter-spacing:-0.035em;color:var(--text);margin-bottom:20px}
+.founder-role{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:36px;display:flex;align-items:center;gap:10px;letter-spacing:0.02em;text-transform:uppercase}
+.founder-role::before{content:'';width:24px;height:1.5px;background:var(--orange);display:block}
+.founder-body p{font-size:16px;color:var(--muted);line-height:1.78;margin-bottom:20px}
+.founder-body strong{color:var(--text);font-weight:600}
+.founder-qwrap{border-left:3px solid var(--orange);padding:18px 22px;background:rgba(255,122,0,0.05);border-radius:0 var(--radius) var(--radius) 0;margin:24px 0}
+.founder-q{font-family:'Caveat',cursive;font-size:21px;color:var(--orange-dark);line-height:1.45}
+.founder-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+
+/* ════════════════════════════════════════
+   FINAL CTA
+════════════════════════════════════════ */
+#cta{padding:72px 0;background:var(--blue-dark);text-align:center;position:relative;overflow:hidden}
+.cta-grid-tex{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:1000px;height:1000px;background-image:linear-gradient(rgba(30,94,255,0.1) 1px,transparent 1px),linear-gradient(90deg,rgba(30,94,255,0.1) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,black 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 60% 60% at 50% 50%,black 0%,transparent 70%);pointer-events:none}
+.cta-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(30,94,255,0.22) 0%,transparent 70%);pointer-events:none;animation:float 10s ease infinite}
+.cta-glow-o{position:absolute;bottom:-100px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(255,122,0,0.15) 0%,transparent 70%);pointer-events:none;animation:float 8s ease 2s infinite}
+.cta-inner{position:relative;z-index:1}
+.cta-caveat{font-family:'Caveat',cursive;font-size:24px;color:rgba(255,255,255,0.38);display:block;margin-bottom:20px}
+.cta-h2{font-size:clamp(60px,8.5vw,108px);font-weight:900;line-height:0.84;letter-spacing:-0.04em;color:white;margin-bottom:32px}
+.cta-h2 .ow{color:var(--orange)}
+.cta-h2 .hollow{-webkit-text-stroke:1px rgba(255,255,255,0.2);color:transparent}
+.cta-sub{font-family:'Caveat',cursive;font-size:22px;color:rgba(255,255,255,0.45);max-width:440px;margin:0 auto 52px;line-height:1.65}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════ */
+footer{background:var(--black);border-top:1px solid rgba(255,255,255,0.04);padding:80px 0 36px}
+.footer-top{display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
+.f-logo{font-family:'League Spartan',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.02em;color:white;display:block;margin-bottom:14px;text-decoration:none}
+.f-logo em{color:var(--orange);font-style:normal}
+.f-caveat{font-family:'Caveat',cursive;font-size:18px;color:rgba(255,255,255,0.26);margin-bottom:28px;display:block}
+.f-socials{display:flex;gap:8px}
+.f-soc{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:rgba(255,255,255,0.32);text-decoration:none;transition:all 0.2s;cursor:none}
+.f-soc:hover{background:var(--orange);color:white;border-color:var(--orange)}
+.f-col h4{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:20px}
+.f-col a{display:block;font-size:14px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:12px;transition:color 0.2s;letter-spacing:-0.01em}
+.f-col a:hover{color:rgba(255,255,255,0.88)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.05);padding-top:28px;flex-wrap:wrap;gap:12px}
+.f-bottom p{font-size:12px;color:rgba(255,255,255,0.16)}
+.f-bottom-links{display:flex;gap:20px}
+.f-bottom-links a{font-size:12px;color:rgba(255,255,255,0.16);text-decoration:none;transition:color 0.2s}
+.f-bottom-links a:hover{color:rgba(255,255,255,0.6)}
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+@media(max-width:1024px){.wrap,.vsl-wrap{padding:0 36px}.nav-wrap{padding:0 36px}}
+@media(max-width:900px){
+  .nav-links,.nav-right .btn-outline{display:none}
+  .wrap,.nav-wrap,.vsl-wrap{padding:0 24px}
+  .hero-stats{gap:20px}
+  .wwc-grid{grid-template-columns:repeat(2,1fr)}
+  .fw-grid{grid-template-columns:1fr}
+  .port-panel{grid-template-columns:repeat(2,1fr)!important}
+  .pkg-grid{grid-template-columns:1fr}
+  .pkg-card.featured{order:-1}
+  .cmp-head{grid-template-columns:1fr 1fr}.cmp-hcell.c-feat-head{display:none}
+  .cmp-row{grid-template-columns:1fr 1fr}.c-feat{display:none}
+  .founder-grid,.footer-top{grid-template-columns:1fr}
+  .fn-4{display:none}
+  /* Change from 80px → 56px */
+#what-we-create,#framework,#portfolio,#packages,#comparison,#founder,#cta{padding:56px 0}
+  .cta-h2{font-size:52px}
+}
+@media(max-width:600px){
+  .wwc-grid{grid-template-columns:1fr}
+  .port-panel{grid-template-columns:1fr!important}
+  .port-tabs{gap:6px}
+  .port-tab{padding:8px 14px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ CURSOR ══ -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ══ LOADER ══ -->
+<div id="loader">
+  <div class="loader-logo">ETHRON<em>.</em></div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-text">Engineering influence</div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <div class="nav-wrap">
+    <a href="#" class="nav-logo">ETHRON<span class="dot">.</span></a>
+    <div class="nav-pill">
+      <div class="nav-pill-dot"></div>
+      Taking new clients
+    </div>
+    <div class="nav-links">
+      <a href="#portfolio">Work</a>
+      <a href="#packages">Packages</a>
+      <a href="#comparison">Why Us</a>
+      <a href="#founder">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="#portfolio" class="btn btn-outline btn-sm">See Work</a>
+      <a href="#cta" class="btn btn-orange btn-sm">Book A Call →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-grid-wrap">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-radial"></div>
+    <div class="hero-radial2"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow r">
+      <div class="nav-pill-dot"></div>
+      <span>We Engineer Influence Online</span>
+    </div>
+    <h1 class="hero-h1 r">Turn Attention Into<br>Clients Online.</h1>
+    <p class="hero-sub r r2">Strategic content systems that turn founders & creators into the names their audience remembers & trusts.</p>
+    
+    <div class="hero-btns r r2">
+      <a href="#cta" class="btn btn-cta">Book A Call →</a>
+      <a href="#portfolio" class="btn btn-outline btn-lg">See Our Work</a>
+    </div>
+    <div class="fomo-badge r r2">
+      <div class="fomo-dot"></div>
+      3 SPOTS LEFT THIS MONTH
+    </div>
+    <div class="hero-stats r r3">
+      <div>
+        <div class="hero-stat-val">48hr</em></div>
+        <div class="hero-stat-lbl">Avg. delivery</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">3x</em></div>
+        <div class="hero-stat-lbl">Engagement lift</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">100%</em></div>
+        <div class="hero-stat-lbl">Done for you</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ══ VSL ══ -->
+<section id="vsl">
+  <div class="vsl-wrap">
+    <div class="vsl-container r">
+      <div class="vsl-inner">
+        <div class="vsl-badge">Welcome to Ethron</div>
+        <div class="vsl-play" title="Play Video"><div class="vsl-play-i"></div></div>
+        <div class="vsl-lbl">Watch — How Ethron engineers your influence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE ══ -->
+<div class="mq">
+  <div class="mq-track">
+    <span class="mq-item">Short Form Video <span class="mq-sep">●</span></span>
+    <span class="mq-item">SaaS Explainers <span class="mq-sep">●</span></span>
+    <span class="mq-item">Content Strategy <span class="mq-sep">●</span></span>
+    <span class="mq-item">Personal Brand Systems <span class="mq-sep">●</span></span>
+    <span class="mq-item">Hook Writing <span class="mq-sep">●</span></span>
+    <span class="mq-item">Content Repurposing <span class="mq-sep">●</span></span>
+    <span class="mq-item">Motion Graphics <span class="mq-sep">●</span></span>
+    <span class="mq-item">Podcast Editing <span class="mq-sep">●</span></span>
+    <span class="mq-item">Short Form Video <span class="mq-sep">●</span></span>
+    <span class="mq-item">SaaS Explainers <span class="mq-sep">●</span></span>
+    <span class="mq-item">Content Strategy <span class="mq-sep">●</span></span>
+    <span class="mq-item">Personal Brand Systems <span class="mq-sep">●</span></span>
+    <span class="mq-item">Hook Writing <span class="mq-sep">●</span></span>
+    <span class="mq-item">Content Repurposing <span class="mq-sep">●</span></span>
+    <span class="mq-item">Motion Graphics <span class="mq-sep">●</span></span>
+    <span class="mq-item">Podcast Editing <span class="mq-sep">●</span></span>
+  </div>
+</div>
+
+<!-- ══ PORTFOLIO — TABS ══ -->
+<section id="portfolio">
+  <div class="wrap">
+    <div class="port-hdr r">
+      <div>
+        <span class="label">Selected Work</span>
+        <h2 class="port-h2">See The Work.</h2>
+      </div>
+      
+    </div>
+
+    <!-- Tab Buttons -->
+    <div class="port-tabs r r2">
+      <button class="port-tab active" data-tab="talking">Talking Head (16:9)</button>
+      <button class="port-tab" data-tab="reels">Reels / Shorts (9:16)</button>
+      <button class="port-tab" data-tab="saas">SaaS (16:9)</button>
+      <button class="port-tab" data-tab="thumbs">Thumbnails (16:9)</button>
+    </div>
+
+    <!-- Talking Head Panel -->
+    <div class="port-panel active" id="panel-talking">
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0d1b52,#1e3a8a)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">TALKING HEAD</span>
+        </div>
+        <span class="port-badge">Client A</span>
+        <div class="port-overlay"><div class="port-title">The CEO Interview — Full Story</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0f2027,#2c5364)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">TALKING HEAD</span>
+        </div>
+        <span class="port-badge">Client B</span>
+        <div class="port-overlay"><div class="port-title">Founder Breakdown — Raising $2M</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0f0c29,#302b63)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">TALKING HEAD</span>
+        </div>
+        <span class="port-badge">Client C</span>
+        <div class="port-overlay"><div class="port-title">3 Rules Every Creator Needs</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#000428,#004e92)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">TALKING HEAD</span>
+        </div>
+        <span class="port-badge">Client D</span>
+        <div class="port-overlay"><div class="port-title">Why I Left My 9-to-5</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#1a1a2e,#16213e)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">TALKING HEAD</span>
+        </div>
+        <span class="port-badge">Client E</span>
+        <div class="port-overlay"><div class="port-title">Built an Audience from Zero</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0d1b2a,#1b4965)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">TALKING HEAD</span>
+        </div>
+        <span class="port-badge">Client F</span>
+        <div class="port-overlay"><div class="port-title">The Sales Process Nobody Teaches</div></div>
+      </div>
+    </div>
+
+    <!-- Reels Panel -->
+    <div class="port-panel" id="panel-reels" style="grid-template-columns:repeat(3,1fr)">
+      <div class="port-card port-port">
+        <div class="port-inner" style="background:linear-gradient(145deg,#1a0800,#3d1500)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">REEL</span>
+        </div>
+        <span class="port-badge">9:16</span>
+        <div class="port-overlay"><div class="port-title">Hook That Gets 1M Views</div></div>
+      </div>
+      <div class="port-card port-port">
+        <div class="port-inner" style="background:linear-gradient(145deg,#1a0029,#430068)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SHORT</span>
+        </div>
+        <span class="port-badge">9:16</span>
+        <div class="port-overlay"><div class="port-title">60 Seconds That Changed My Business</div></div>
+      </div>
+      <div class="port-card port-port">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0a2500,#174700)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">REEL</span>
+        </div>
+        <span class="port-badge">9:16</span>
+        <div class="port-overlay"><div class="port-title">Tell Your Story in Under a Minute</div></div>
+      </div>
+      <div class="port-card port-port">
+        <div class="port-inner" style="background:linear-gradient(145deg,#1f0000,#4a0000)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SHORT</span>
+        </div>
+        <span class="port-badge">9:16</span>
+        <div class="port-overlay"><div class="port-title">What Nobody Tells You About Scaling</div></div>
+      </div>
+      <div class="port-card port-port">
+        <div class="port-inner" style="background:linear-gradient(145deg,#002030,#005070)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">REEL</span>
+        </div>
+        <span class="port-badge">9:16</span>
+        <div class="port-overlay"><div class="port-title">The 3-Second Rule of Attention</div></div>
+      </div>
+      <div class="port-card port-port">
+        <div class="port-inner" style="background:linear-gradient(145deg,#1a1000,#3a2800)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SHORT</span>
+        </div>
+        <span class="port-badge">9:16</span>
+        <div class="port-overlay"><div class="port-title">Why Most Content Gets Zero Views</div></div>
+      </div>
+    </div>
+
+    <!-- SaaS Panel -->
+    <div class="port-panel" id="panel-saas">
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#001510,#003528)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SAAS EXPLAINER</span>
+        </div>
+        <span class="port-badge">SaaS</span>
+        <div class="port-overlay"><div class="port-title">Product Demo — Onboarding Flow</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0a0a1e,#1a1a4a)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SAAS EXPLAINER</span>
+        </div>
+        <span class="port-badge">SaaS</span>
+        <div class="port-overlay"><div class="port-title">Feature Walkthrough — Dashboard</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#101020,#202050)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SAAS EXPLAINER</span>
+        </div>
+        <span class="port-badge">SaaS</span>
+        <div class="port-overlay"><div class="port-title">Customer Success Story</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#002020,#004040)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SAAS EXPLAINER</span>
+        </div>
+        <span class="port-badge">SaaS</span>
+        <div class="port-overlay"><div class="port-title">How It Works — 90 Sec Overview</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0d1b52,#162a73)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SAAS EXPLAINER</span>
+        </div>
+        <span class="port-badge">SaaS</span>
+        <div class="port-overlay"><div class="port-title">Investor Pitch — Visual Deck</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0f1020,#1e2050)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">SAAS EXPLAINER</span>
+        </div>
+        <span class="port-badge">SaaS</span>
+        <div class="port-overlay"><div class="port-title">Product Launch Promo</div></div>
+      </div>
+    </div>
+
+    <!-- Thumbnails Panel -->
+    <div class="port-panel" id="panel-thumbs">
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#1a0800,#4a1800)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">THUMBNAIL</span>
+        </div>
+        <span class="port-badge">YT</span>
+        <div class="port-overlay"><div class="port-title">Personal Brand — Series Launch</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#001533,#003380)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">THUMBNAIL</span>
+        </div>
+        <span class="port-badge">YT</span>
+        <div class="port-overlay"><div class="port-title">Business Breakdown — Style A</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#150020,#400060)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">THUMBNAIL</span>
+        </div>
+        <span class="port-badge">YT</span>
+        <div class="port-overlay"><div class="port-title">Story Video — Cinematic Style</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#001a00,#004000)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">THUMBNAIL</span>
+        </div>
+        <span class="port-badge">YT</span>
+        <div class="port-overlay"><div class="port-title">Tutorial — Bold Type Style</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#1a0010,#4a0030)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">THUMBNAIL</span>
+        </div>
+        <span class="port-badge">YT</span>
+        <div class="port-overlay"><div class="port-title">Finance Creator — Pack of 4</div></div>
+      </div>
+      <div class="port-card port-land">
+        <div class="port-inner" style="background:linear-gradient(145deg,#0d0d0d,#2e2e2e)">
+          <div class="port-play"><div class="port-play-i"></div></div>
+          <span class="port-type-lbl">THUMBNAIL</span>
+        </div>
+        <span class="port-badge">YT</span>
+        <div class="port-overlay"><div class="port-title">Minimalist Dark — Luxury Brand</div></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:48px" class="r">
+      <a href="#cta" class="btn btn-cta">Book A Call To Discuss Your Project →</a>
+    </div>
+  </div>
+</section>
+<!-- ══ FRAMEWORK ══ -->
+<section id="framework">
+  <div class="wrap">
+    <div class="fw-header r">
+      <div class="fw-header-row">
+        <div>
+          <span class="label">The Ethron Framework</span>
+          <h2 class="fw-h2">Three things.
+          <br>Every brand needs all of them.</h2>
+        </div>
+     
+      </div>
+    </div>
+    <div class="fw-grid">
+      <div class="fw-card r">
+        <div class="fw-num">01.</div>
+        <h3 class="fw-name">Teach</h3>
+        <p class="fw-desc">Content that gives people something they can't unlearn. Genuine value creates the deepest form of trust — because you're giving before you're ever asking.</p>
+        <span class="fw-caveat">"Give value first. Always."</span>
+      </div>
+      <div class="fw-card r r2">
+        <div class="fw-num">02.</div>
+        <h3 class="fw-name">Prove</h3>
+        <p class="fw-desc">Not with claims — with evidence. Process, results, expertise shown in real time. Content that silences doubt before the sales conversation even begins.</p>
+        <span class="fw-caveat">"Show, don't just tell."</span>
+      </div>
+      <div class="fw-card r r3">
+        <div class="fw-num">03.</div>
+        <h3 class="fw-name">Connect</h3>
+        <p class="fw-desc">Your story, your perspective, your way of seeing things. The part nobody else can replicate or copy. The reason people choose you specifically.</p>
+        <span class="fw-caveat">"Be unforgettable to the right people."</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ PACKAGES ══ -->
+<section id="packages">
+  <div class="wrap">
+    <div class="pkg-hdr r">
+      <span class="label">Choose Your Path</span>
+      <h2 class="pkg-h2">Pick Your<br>Growth Package.</h2>
+      <p class="pkg-sub">Every package is built to deliver — no fluff, just work that moves the needle.</p>
+    </div>
+    <div class="pkg-grid r r2">
+
+      <!-- Content Repurposing -->
+      <div class="pkg-card">
+        <span class="pkg-icon"></span>
+        <div class="pkg-name">Content Repurposing</div>
+        <span class="pkg-tagline">Already creating? Let's scale it.</span>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-features">
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>1 Long Video → Up to 8 Clips</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>Platform-Optimized Formats</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>Captions & Subtitles</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>Basic Thumbnail Included</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>48hr Turnaround</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>2 Revision Rounds</li>
+        </ul>
+        <a href="#cta" class="pkg-btn pkg-btn-outline">Get Started →</a>
+      </div>
+
+      <!-- Personal Branding — FEATURED CENTER -->
+      <div class="pkg-card featured">
+        <span class="pkg-badge">⭐ MOST POPULAR</span>
+        <span class="pkg-icon"></span>
+        <div class="pkg-name">Personal Branding</div>
+        <span class="pkg-tagline">Your complete content engine.</span>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-features">
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>8 Short Form Videos / Month</li>
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>Monthly Strategy Session</li>
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>Hook & Script Direction</li>
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>Advanced Motion Graphics</li>
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>Content Calendar Included</li>
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>Unlimited Revisions</li>
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>48hr Turnaround Guarantee</li>
+          <li class="pkg-feat"><div class="pkg-check chk-feat">✓</div>Dedicated Account Manager</li>
+        </ul>
+        <a href="#cta" class="pkg-btn pkg-btn-blue">Let's Discuss →</a>
+      </div>
+
+      <!-- Video Editing -->
+      <div class="pkg-card">
+        <span class="pkg-icon"></span>
+        <div class="pkg-name">Video Editing</div>
+        <span class="pkg-tagline">Pure editing. Zero compromise.</span>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-features">
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>Long Form Editing (YouTube)</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>B-Roll & Cutaway Integration</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>Color Grading</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>Sound Design & Mixing</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>Captions & Subtitles</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>48hr Turnaround</li>
+          <li class="pkg-feat"><div class="pkg-check chk-std">✓</div>2 Revision Rounds</li>
+        </ul>
+        <a href="#cta" class="pkg-btn pkg-btn-outline">Get Started →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARISON ══ -->
+<section id="comparison">
+  <div class="wrap">
+    <div class="cmp-hdr r">
+      <span class="label">Why Ethron</span>
+      <h2 class="cmp-h2">Ethron vs.<br>The Alternatives.</h2>
+      <p class="cmp-sub">You've tried freelancers. You already know how that story ends.</p>
+    </div>
+    <div class="cmp-box r r2">
+      <div class="cmp-head">
+        <div class="cmp-hcell c-feat-head">What You're Comparing</div>
+        <div class="cmp-hcell">Freelancers / Others</div>
+        <div class="cmp-hcell h-ethron"><span class="cmp-brand"></span>Ethron Studios</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Turnaround Time</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>Unpredictable — days or weeks</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Guaranteed 48 hours, always</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Revision Policy</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>Limited — extra cost per round</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Unlimited, always included</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Content Strategy</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>Not part of the deal</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Built into every package</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Communication</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>Hard to reach, slow to respond</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Dedicated Slack channel</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Brand Consistency</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>Different style every time</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Consistent identity, always on-brand</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Scalability</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>Start from scratch each time</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Same team that grows with you</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Accountability</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>No deliverable guarantees</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Clear scope, clear outcomes</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell c-feat">Transparency</div>
+        <div class="cmp-cell c-others"><div class="ico-no">✕</div>Hidden fees and surprises</div>
+        <div class="cmp-cell c-ethron"><div class="ico-yes">✓</div>Clear pricing, zero surprises</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOUNDER ══ -->
+<section id="founder">
+  <div class="wrap">
+    <div class="founder-grid">
+      <div class="founder-img-col r">
+        <div style="position:relative;display:inline-block;width:100%">
+          <div class="founder-photo">
+            <img src="founder.png" alt="Fahad Alfee — Founder, Ethron Studios">
+          </div>
+        </div>
+      </div>
+      <div class="founder-text r r2">
+        <span class="label">Why Ethron Exists</span>
+        <h2 class="founder-h2">The people who<br>communicate best<br>often win.</h2>
+        <div class="founder-role">Fahad Alfee — Founder & Content Strategist</div>
+        <div class="founder-body">
+          <p>Ethron was built around one belief: <strong>attention is the most valuable currency in the digital world</strong> — and most people are spending it wrong.</p>
+          <p>After years of studying what makes people stop scrolling, trust a stranger, and eventually buy — I built a system around those exact mechanics. <strong>Not just editing. Not just content. A framework for engineering influence.</strong></p>
+          <div class="founder-qwrap">
+            <span class="founder-q">"Our mission is to help ambitious people become impossible to overlook online."</span>
+          </div>
+        </div>
+        <div class="founder-btns">
+          <a href="#cta" class="btn btn-cta">Book A Call →</a>
+          <a href="#portfolio" class="btn btn-outline btn-lg">See Our Work</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section id="cta">
+  <div class="cta-grid-tex"></div>
+  <div class="cta-glow"></div>
+  <div class="cta-glow-o"></div>
+  <div class="wrap cta-inner">
+    <span class="cta-caveat r">You're still reading. That means you get it.</span>
+    <h2 class="cta-h2 r">
+      Become the name<br>
+      <span class="hollow">people</span> <span class="ow">remember.</span>
+    </h2>
+    <p class="cta-sub r">Book a free 15-minute call. We'll look at what you're doing now, tell you exactly what's holding it back, and show you what's possible. No pitch. Just truth.</p>
+    <div class="cta-btns r">
+      <a href="https://calendly.com" target="_blank" class="btn btn-cta">Book A Call — It's Free →</a>
+      <a href="#portfolio" class="btn btn-white-ghost btn-lg">See Our Work</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="f-logo">ETHRON<em>.</em></a>
+        <span class="f-caveat">Engineer Your Content.</span>
+        <div class="f-socials">
+          <a href="https://instagram.com/ethron_studios" target="_blank" class="f-soc">In</a>
+          <a href="https://linkedin.com" target="_blank" class="f-soc">Li</a>
+          <a href="https://twitter.com" target="_blank" class="f-soc">X</a>
+        </div>
+      </div>
+      <div class="f-col">
+        <h4>Navigate</h4>
+        <a href="#portfolio">Our Work</a>
+        <a href="#packages">Packages</a>
+        <a href="#comparison">Why Us</a>
+        <a href="#founder">About</a>
+      </div>
+      <div class="f-col">
+        <h4>Services</h4>
+        <a href="#">Content Repurposing</a>
+        <a href="#">Video Editing</a>
+        <a href="#">Personal Brand</a>
+        <a href="#">SEO & Repurposing</a>
+      </div>
+      <div class="f-col">
+        <h4>Contact</h4>
+        <a href="mailto:hello@ethronstudios.com">hello@ethronstudios.com</a>
+        <a href="https://instagram.com/ethron_studios" target="_blank">@ethron_studios</a>
+        <a href="#cta">Book a Call</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p>© 2026 Ethron Studios. All rights reserved.</p>
+      <div class="f-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── LOADER ─── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('done');
+    document.querySelectorAll('.r').forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), i * 55);
+    });
+  }, 1400);
+});
+
+/* ─── CUSTOM CURSOR ─── */
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let cx = 0, cy = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  cx = e.clientX; cy = e.clientY;
+  cur.style.left = cx + 'px'; cur.style.top = cy + 'px';
+});
+(function animRing() {
+  rx += (cx - rx) * 0.14; ry += (cy - ry) * 0.14;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+document.addEventListener('mouseleave', () => { cur.style.opacity = '0'; ring.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cur.style.opacity = '1'; ring.style.opacity = '1'; });
+
+/* ─── SCROLL REVEAL ─── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+/* ─── NAV SCROLL ─── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ─── SMOOTH ANCHOR SCROLL ─── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const h = a.getAttribute('href');
+    if (h === '#') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    e.preventDefault();
+    const target = document.querySelector(h);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+/* ─── PORTFOLIO TABS ─── */
+document.querySelectorAll('.port-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.port-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.port-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
